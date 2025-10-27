@@ -1,0 +1,18 @@
+<input type="text" id="search" placeholder="Search this page...">
+<div id="content">
+  <p>Welcome to my website.</p>
+  <p>This page contains jQuery examples.</p>
+  <p>Contact us for more information.</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#content p").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

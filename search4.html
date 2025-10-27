@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Search Bar with Links</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+  }
+
+  .search-container {
+    position: relative;
+    width: 300px;
+  }
+
+  #searchInput {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  #results {
+    display: none;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    z-index: 100;
+  }
+
+  .item {
+    padding: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: #333;
+  }
+
+  .item:hover {
+    background-color: #f0f0f0;
+  }
+
+  .no-results {
+    padding: 8px;
+    font-style: italic;
+    color: #888;
+  }
+</style>
+</head>
+<body>
+
+<h2>🔗 Search Bar with Hyperlink Results</h2>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Type to search...">
+  <div id="results"></div>
+</div>
+
+<!-- jQuery for search-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Sample items with corresponding URLs
+  const items = [
+    { name: "Apple iPhone 15 Pro", url: "products.html" },
+    { name: "Samsung Galaxy S24", url: "products.html" },
+    { name: "Google Pixel 9", url: "products.html" },
+    { name: "OnePlus 12", url: "products.html" },
+    { name: "Xiaomi 14 Ultra", url: "products.html" },
+    { name: "Sony Xperia 5 VI", url: "products.html" }
+  ];
+
+  $("#searchInput").on("input", function() {
+    const query = $(this).val().trim().toLowerCase();
+
+    if (query === "") {
+      $("#results").hide();
+      return;
+    }
+
+    const filtered = items.filter(item => item.name.toLowerCase().includes(query));
+
+    if (filtered.length > 0) {
+      // Render results as hyperlinks
+      $("#results").html(
+        filtered.map(item => `<a href="${item.url}" class="item">${item.name}</a>`).join("")
+      );
+    } else {
+      $("#results").html('<div class="no-results">No matching results.</div>');
+    }
+
+    $("#results").show();
+  });
+
+  // Hide dropdown when clicking outside
+  $(document).on("click", function(e) {
+    if (!$(e.target).closest('.search-container').length) {
+      $("#results").hide();
+    }
+  });
+});
+</script>
+
+</body>
+</html>

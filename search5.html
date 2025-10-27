@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Search Button Trigger (jQuery)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+  }
+
+  .search-container {
+    position: relative;
+    width: 320px;
+  }
+
+  #searchInput {
+    width: 230px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  #searchBtn {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+
+  #searchBtn:hover {
+    background-color: #0056b3;
+  }
+
+  #results {
+    display: none; /* hidden by default */
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+  }
+
+  .item {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .item:hover {
+    background-color: #f0f0f0;
+  }
+
+  .no-results {
+    color: #888;
+    padding: 8px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<h2>🔍 Search Only on Button Click</h2>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Type and click search...">
+  <button id="searchBtn">Search</button>
+  <div id="results"></div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Sample searchable data
+  const items = [
+    "Apple iPhone 15 Pro",
+    "Samsung Galaxy S24",
+    "Google Pixel 9",
+    "OnePlus 12",
+    "Xiaomi 14 Ultra",
+    "Sony Xperia 5 VI"
+  ];
+
+  // Show results area when clicking input
+  $("#searchInput").on("focus click", function() {
+    $("#results").show();
+  });
+
+  // Hide results when clicking outside
+  $(document).on("click", function(e) {
+    if (!$(e.target).closest('.search-container').length) {
+      $("#results").hide();
+    }
+  });
+
+  // Search only when clicking the button
+  $("#searchBtn").on("click", function() {
+    const query = $("#searchInput").val().toLowerCase().trim();
+
+    if (query === "") {
+      $("#results").html('<div class="no-results">Please type something to search.</div>').show();
+      return;
+    }
+
+    const filtered = items.filter(item => item.toLowerCase().includes(query));
+
+    if (filtered.length > 0) {
+      $("#results").html(filtered.map(item => `<div class="item">${item}</div>`).join(""));
+    } else {
+      $("#results").html('<div class="no-results">No matching results.</div>');
+    }
+
+    $("#results").show(); // show dropdown results
+  });
+});
+</script>
+
+</body>
+</html>

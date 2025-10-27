@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Search with Button</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input[type="text"] {
+      padding: 8px;
+      width: 220px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 8px 15px;
+      margin-left: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+    li {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    li.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Search List (Click Button to Search)</h2>
+
+  <input type="text" id="searchBox" placeholder="Type to search...">
+  <button id="searchBtn">Search</button>
+  <button id="resetBtn">Reset</button>
+
+  <ul id="itemList">
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Cherry</li>
+    <li>Date</li>
+    <li>Grapes</li>
+    <li>Kiwi</li>
+    <li>Mango</li>
+    <li>Orange</li>
+    <li>Pineapple</li>
+    <li>Watermelon</li>
+  </ul>
+
+  <script>
+    $(document).ready(function() {
+      // Search button click
+      $("#searchBtn").click(function() {
+        let searchText = $("#searchBox").val().toLowerCase();
+
+        $("#itemList li").each(function() {
+          let itemText = $(this).text().toLowerCase();
+          if (itemText.indexOf(searchText) > -1) {
+            $(this).removeClass("hidden");
+          } else {
+            $(this).addClass("hidden");
+          }
+        });
+      });
+
+      // Reset button click
+      $("#resetBtn").click(function() {
+        $("#searchBox").val("");
+        $("#itemList li").removeClass("hidden");
+      });
+    });
+  </script>
+
+</body>
+</html>

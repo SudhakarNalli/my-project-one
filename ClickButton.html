@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML + jQuery Example</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    #message {
+      display: none;
+      color: blue;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Hello jQuery!</h2>
+  <button id="showMessage">Click Me</button>
+  <p id="message">👋 You just clicked the button!</p>
+
+  <script>
+    // jQuery script
+    $(document).ready(function() {
+      $("#showMessage").click(function() {
+        $("#message").fadeToggle(); // show/hide with animation
+      });
+    });
+  </script>
+
+</body>
+</html>
